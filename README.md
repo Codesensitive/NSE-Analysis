@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# NSE Leaderboard & Analysis Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, AI-driven web application that tracks, ranks, and analyzes National Stock Exchange of India (NSE) listed stocks based on quarterly and year-over-year (YoY) financial performance.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
+- **Dynamic Leaderboard:** Real-time stock rankings determined by functional algorithms parsing Revenue Growth, Profit Margins, and EPS.
+- **5-Point Deep Analysis:** Automatically synthesizes the daily news cycle and financial metrics to calculate news sentiment and provide 5 structured reasons for a stock's ranking.
+- **Premium Glassmorphism UI:** Built with Vanilla CSS adhering strictly to modern, dynamic aesthetic standards.
+- **Automated Scanning Ready:** Modular scraper libraries (`src/lib/scraper.ts`) pre-configured to detect new IPOs and fetch daily Top 10 news.
+- **Test-Driven Architecture:** Codebase validated via Vitest (`test_scraper.ts`, `test_ranking.ts`, `test_analysis.ts`), ensuring 100% functional integrity.
+- **Supabase Integration:** Configured with a PostgreSQL SQL schema for long-term data persistence.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠 Tech Stack
+- **Frontend Framework:** Vite + React (Strict TypeScript)
+- **Styling:** Custom Vanilla CSS with Design Tokens
+- **Testing:** Vitest & React Testing Library
+- **Database Backend:** Supabase (PostgreSQL)
 
-## React Compiler
+## 📦 Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+- Node.js (v18+)
+- A Supabase Project
 
-## Expanding the ESLint configuration
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd NSE-Analysis
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create your `.env.local` file utilizing the provided `.env.example`:
+   ```bash
+   VITE_SUPABASE_URL=your-supabase-url
+   VITE_SUPABASE_ANON_KEY=your-supabase-key
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🧪 Testing
+The logic suite is entirely test-driven. Run the automated analysis tests:
+```bash
+npx vitest
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📜 Architecture & Rules Enforced
+- **Strict Typing:** Eradication of `any` types; full TypeScript coverage.
+- **Functional Paradigm:** Prefer functional, pure architecture with predictable outcomes over class-based instantiation.
+- **DRY Design:** UI elements and number formatting are abstracted utilizing `src/lib/utils.ts`.
