@@ -1,56 +1,61 @@
 import React, { useEffect, useState } from 'react'
 import { LeaderboardItem } from './components/LeaderboardItem'
 import { AnalysisCard } from './components/AnalysisCard'
-import { supabase } from './lib/supabase'
+import { LiveNewsSection } from './components/LiveNewsSection'
+import { UpcomingStocksSection } from './components/UpcomingStocksSection'
 import { rankStocks } from './lib/ranking'
 import { generateDeepAnalysis } from './lib/analysis'
 import type { StockCandidate } from './lib/ranking'
 import type { DeepAnalysis } from './lib/analysis'
+import type { ScrapedNews } from './lib/scraper'
+import type { UpcomingStock } from './components/UpcomingStocksSection'
 import { Activity } from 'lucide-react'
-
-const MOCK_DATA: StockCandidate[] = [
-  { symbol: 'RELIANCE', report: { revenue: 230000000, netProfit: 21000000, yoyGrowth: 18.5 } },
-  { symbol: 'HDFCBANK', report: { revenue: 115000000, netProfit: 16000000, yoyGrowth: 21.0 } },
-  { symbol: 'TCS', report: { revenue: 59000000, netProfit: 11000000, yoyGrowth: 15.2 } },
-  { symbol: 'INFY', report: { revenue: 38000000, netProfit: 6000000, yoyGrowth: 12.1 } },
-  { symbol: 'ICICIBANK', report: { revenue: 95000000, netProfit: 10000000, yoyGrowth: -2.0 } },
-]
 
 export default function App() {
   const [candidates, setCandidates] = useState<StockCandidate[]>([])
+  const [liveNews, setLiveNews] = useState<ScrapedNews[]>([])
+  const [upcoming, setUpcoming] = useState<UpcomingStock[]>([])
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null)
   const [analysis, setAnalysis] = useState<DeepAnalysis | null>(null)
   const [isAnalysisLoading, setIsAnalysisLoading] = useState(false)
+  const [isDataLoading, setIsDataLoading] = useState(true)
 
-  // Initialization: fetch from Supabase (fallback to mocked ranking for preview)
   useEffect(() => {
-    const fetchLeaderboard = async () => {
+    const fetchLiveData = async () => {
       try {
-        // Here we'd do: const { data } = await supabase.from('financial_reports').select(...)
-        const ranked = rankStocks(MOCK_DATA)
-        setCandidates(ranked)
+        const response = await fetch('/live_data.json')
+        if (!response.ok) throw new Error('Live data generation failed or file missing.')
+        const data = await response.json()
+        
+        setCandidates(rankStocks(data.stocks))
+        setLiveNews(data.liveNews)
+        setUpcoming(data.upcoming)
       } catch (err) {
-        console.error('Failed to load leaderboard', err)
+        console.error('Failed to load NSE Leaderboard data', err)
+      } finally {
+        setIsDataLoading(false)
       }
     }
-    fetchLeaderboard()
+    fetchLiveData()
   }, [])
 
   const handleSelectStock = (symbol: string) => {
     setSelectedSymbol(symbol)
     setIsAnalysisLoading(true)
     
-    // Simulate fetching news and generating analysis via AI
     setTimeout(() => {
       const stock = candidates.find(c => c.symbol === symbol)
       if (stock) {
-        const generated = generateDeepAnalysis(stock.symbol, stock.report, [
-          { headline: `${symbol} hits 52-week high after robust earnings`, url: '', publishedAt: '' }
-        ])
+        const stockNews = liveNews.filter(n => n.headline.includes(symbol))
+        const generated = generateDeepAnalysis(stock.symbol, stock.report, stockNews)
         setAnalysis(generated)
       }
       setIsAnalysisLoading(false)
     }, 800)
+  }
+
+  if (isDataLoading) {
+    return <div className="container"><p className="text-secondary" style={{ textAlign: 'center', marginTop: '20vh' }}>Synchronizing Live Market Data...</p></div>
   }
 
   return (
@@ -59,14 +64,15 @@ export default function App() {
         <div>
           <h1 className="text-gradient" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <Activity />
-            NSE Leaderboard
+            NSE Analytics Dashboard
           </h1>
-          <p className="text-secondary" style={{ marginTop: '8px' }}>AI-Driven Fundamental Analysis</p>
+          <p className="text-secondary" style={{ marginTop: '8px' }}>Live Market Insights & Fundamentals (Powered by Yahoo Finance)</p>
         </div>
       </header>
 
-      <main style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) minmax(300px, 1fr)', gap: '32px' }}>
-        {/* Leaderboard Column */}
+      <main style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px', alignItems: 'start', position: 'relative' }}>
+        
+        {/* Section 1: Leaderboard */}
         <section>
           <h3 style={{ marginBottom: '20px', color: 'var(--text-secondary)' }}>Top Ranked Equities</h3>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -80,28 +86,38 @@ export default function App() {
                 onClick={handleSelectStock}
               />
             ))}
-            {candidates.length === 0 && <p>Loading market data...</p>}
           </div>
         </section>
 
-        {/* Analysis Spotlight Column */}
-        <section>
-          <div style={{ position: 'sticky', top: '40px' }}>
-            {selectedSymbol ? (
+        {/* Section 2: Live News */}
+        <LiveNewsSection newsItems={liveNews} />
+
+        {/* Section 3: Upcoming IPOs */}
+        <UpcomingStocksSection upcoming={upcoming} />
+
+        {/* Floating Modal for Deep Analysis Spotlight */}
+        {selectedSymbol && (
+          <div style={{
+            position: 'fixed',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.8)',
+            backdropFilter: 'blur(4px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 50,
+            padding: '24px'
+          }}>
+            <div style={{ width: '100%', maxWidth: '600px' }} className="animate-fade-in">
               <AnalysisCard 
                 symbol={selectedSymbol} 
                 analysis={analysis} 
                 isLoading={isAnalysisLoading}
                 onClose={() => setSelectedSymbol(null)}
               />
-            ) : (
-              <div className="glass-panel" style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-secondary)' }}>
-                <h3>Select a stock from the leaderboard</h3>
-                <p style={{ marginTop: '12px' }}>View deep fundamental insights and daily news sentiment.</p>
-              </div>
-            )}
+            </div>
           </div>
-        </section>
+        )}
       </main>
     </div>
   )

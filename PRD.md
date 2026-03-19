@@ -27,6 +27,11 @@ A web-based dashboard and automated analysis engine that tracks, ranks, and anal
 - **PostgreSQL Database:** Relational tables targeting `stocks`, `financial_reports`, `scraped_news`, and `leaderboard_rankings`.
 - **Background Jobs:** Cron-triggered edge functions or GitHub Actions for scraping logic.
 
+### 3.5 Multi-Section Dashboard Expansion
+- **Section 1: Leaderboard:** The core ranked listing of NSE stocks.
+- **Section 2: Live News Feed:** A dedicated section displaying the latest aggregated news for the stocks actively on the leaderboard.
+- **Section 3: Upcoming Listings (IPOs):** Displays upcoming listed stocks. Evaluates a "predictive rating" derived dynamically from parsing news sentiment around their prospectus.
+
 ## 3. Engineering Constraints & Rules (Strict Enforcement)
 - **Architecture Integrity:** Implementation Plan and Task List approved before any code execution.
 - **Language/Paradigm:** Strict TypeScript with functional programming preference.

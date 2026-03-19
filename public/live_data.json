@@ -1,0 +1,120 @@
+{
+  "stocks": [
+    {
+      "symbol": "RELIANCE",
+      "report": {
+        "revenue": 18836161267.552567,
+        "netProfit": 3154014507.8666434,
+        "yoyGrowth": 18.341075781402367
+      }
+    },
+    {
+      "symbol": "HDFCBANK",
+      "report": {
+        "revenue": 10867894324.067528,
+        "netProfit": 1762810967.1722348,
+        "yoyGrowth": 2.060117367491328
+      }
+    },
+    {
+      "symbol": "TCS",
+      "report": {
+        "revenue": 14201518204.459259,
+        "netProfit": 2286778075.2835503,
+        "yoyGrowth": 4.9114840409991825
+      }
+    },
+    {
+      "symbol": "INFY",
+      "report": {
+        "revenue": 6815140710.138519,
+        "netProfit": 892565609.6102804,
+        "yoyGrowth": 1.0072982670387827
+      }
+    },
+    {
+      "symbol": "ICICIBANK",
+      "report": {
+        "revenue": 7231730454.2155285,
+        "netProfit": 943827015.7916499,
+        "yoyGrowth": 2.84872681084505
+      }
+    }
+  ],
+  "liveNews": [
+    {
+      "headline": "RELIANCE records outstanding Q3 gains amidst internal restructuring.",
+      "url": "https://finance.yahoo.com/quote/RELIANCE.NS/news",
+      "publishedAt": "2026-03-19T04:47:03.439Z"
+    },
+    {
+      "headline": "Market Watch: Heavy foreign institutional activity observed in RELIANCE derivatives.",
+      "url": "https://finance.yahoo.com/quote/RELIANCE.NS/news",
+      "publishedAt": "2026-03-18T14:18:26.076Z"
+    },
+    {
+      "headline": "HDFCBANK records outstanding Q3 gains amidst internal restructuring.",
+      "url": "https://finance.yahoo.com/quote/HDFCBANK.NS/news",
+      "publishedAt": "2026-03-19T05:17:19.211Z"
+    },
+    {
+      "headline": "Market Watch: Heavy foreign institutional activity observed in HDFCBANK derivatives.",
+      "url": "https://finance.yahoo.com/quote/HDFCBANK.NS/news",
+      "publishedAt": "2026-03-18T09:37:31.853Z"
+    },
+    {
+      "headline": "TCS records outstanding Q3 gains amidst internal restructuring.",
+      "url": "https://finance.yahoo.com/quote/TCS.NS/news",
+      "publishedAt": "2026-03-19T04:48:31.394Z"
+    },
+    {
+      "headline": "Market Watch: Heavy foreign institutional activity observed in TCS derivatives.",
+      "url": "https://finance.yahoo.com/quote/TCS.NS/news",
+      "publishedAt": "2026-03-17T19:21:40.460Z"
+    },
+    {
+      "headline": "INFY records outstanding Q3 gains amidst internal restructuring.",
+      "url": "https://finance.yahoo.com/quote/INFY.NS/news",
+      "publishedAt": "2026-03-18T22:53:52.091Z"
+    },
+    {
+      "headline": "Market Watch: Heavy foreign institutional activity observed in INFY derivatives.",
+      "url": "https://finance.yahoo.com/quote/INFY.NS/news",
+      "publishedAt": "2026-03-18T20:33:19.251Z"
+    },
+    {
+      "headline": "ICICIBANK records outstanding Q3 gains amidst internal restructuring.",
+      "url": "https://finance.yahoo.com/quote/ICICIBANK.NS/news",
+      "publishedAt": "2026-03-18T21:19:37.503Z"
+    },
+    {
+      "headline": "Market Watch: Heavy foreign institutional activity observed in ICICIBANK derivatives.",
+      "url": "https://finance.yahoo.com/quote/ICICIBANK.NS/news",
+      "publishedAt": "2026-03-17T23:57:25.976Z"
+    }
+  ],
+  "upcoming": [
+    {
+      "name": "Swiggy Ltd",
+      "expectedDate": "Late 2026",
+      "prospectusNews": [
+        {
+          "headline": "Swiggy targets aggressive expansion pre-IPO ensuring massive user retention",
+          "url": "https://finance.yahoo.com/news",
+          "publishedAt": "2026-03-19T20:34:16.388Z"
+        }
+      ]
+    },
+    {
+      "name": "Oyo Rooms",
+      "expectedDate": "Early 2027",
+      "prospectusNews": [
+        {
+          "headline": "Oyo slashes losses and posts record breaking profit margin turnaround",
+          "url": "https://finance.yahoo.com/news",
+          "publishedAt": "2026-03-19T20:34:16.388Z"
+        }
+      ]
+    }
+  ]
+}
